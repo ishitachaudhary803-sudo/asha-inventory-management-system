@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b4d">
+  <title>Asha &amp; Company | Inventory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-mark">A<span>+</span></div>
+      <div class="brand-copy"><strong>Asha &amp; Company</strong><small>Inventory workspace</small></div>
+      <div class="nav-label">WORKSPACE</div>
+      <div class="nav-item active"><span class="nav-icon">▦</span> Overview</div>
+      <div class="nav-item"><span class="nav-icon">▤</span> Product catalogue</div>
+      <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>Inventory system</strong><small>Local demo workspace</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><div class="eyebrow">WORKSPACE / OVERVIEW</div><h1>Product catalogue</h1><p class="subtitle">Manage products, prices, and stock from one place.</p></div>
+        <div class="profile-chip"><div class="avatar">AC</div><div><strong>Admin</strong><small>Asha &amp; Company</small></div></div>
+      </header>
+
+      <section class="stats-grid" aria-label="Inventory summary">
+        <article class="stat-card"><div class="stat-top"><span>Total products</span><span class="stat-icon purple">▦</span></div><div class="stat-number" id="totalProducts">0</div><div class="stat-note">Items in catalogue</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Total units in stock</span><span class="stat-icon blue">▤</span></div><div class="stat-number" id="totalUnits">0</div><div class="stat-note">Across all products</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Low-stock items</span><span class="stat-icon orange">!</span></div><div class="stat-number" id="lowStock">0</div><div class="stat-note">5 units or fewer</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Inventory value</span><span class="stat-icon green">₹</span></div><div class="stat-number" id="inventoryValue">₹0</div><div class="stat-note">Price × stock quantity</div></article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Products</h2><p>Review and update your catalogue.</p></div><button class="primary-btn" id="addButton">＋ Add product</button></div>
+        <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search by name, SKU, or category…" autocomplete="off"></label><span class="result-count" id="resultCount">Loading products…</span></div>
+        <div class="table-wrap">
+          <table><thead><tr><th>PRODUCT</th><th>SKU</th><th>CATEGORY</th><th>PRICE</th><th>STOCK</th><th>STATUS</th><th>ACTIONS</th></tr></thead><tbody id="productRows"><tr><td colspan="7" class="empty-state">Loading inventory…</td></tr></tbody></table>
+        </div>
+        <div class="panel-footer"><span id="footerCount">Showing products</span><span><span class="status-dot inline-dot"></span> Database connected</span></div>
+      </section>
+      <footer class="page-footer">Product Catalogue and Inventory Management System <span>•</span> Asha &amp; Company</footer>
+    </main>
+  </div>
+
+  <dialog id="productDialog" class="product-dialog">
+    <form id="productForm">
+      <div class="dialog-heading"><div><div class="eyebrow">PRODUCT DETAILS</div><h2 id="dialogTitle">Add product</h2></div><button type="button" class="close-btn" id="closeDialog" aria-label="Close">×</button></div>
+      <input type="hidden" id="productId">
+      <div class="form-grid">
+        <label class="field full">Product name *<input id="name" required maxlength="100" placeholder="e.g. Wireless Mouse"></label>
+        <label class="field">SKU *<input id="sku" required maxlength="40" placeholder="e.g. ASH-004"></label>
+        <label class="field">Category<input id="category" maxlength="60" placeholder="e.g. Electronics"></label>
+        <label class="field">Price (₹) *<input id="price" type="number" min="0" step="0.01" required value="0"></label>
+        <label class="field">Quantity in stock *<input id="quantity" type="number" min="0" step="1" required value="0"></label>
+        <label class="field full">Description<textarea id="description" rows="3" maxlength="250" placeholder="Short product description"></textarea></label>
+      </div>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="dialog-actions"><button type="button" class="secondary-btn" id="cancelButton">Cancel</button><button type="submit" class="primary-btn" id="saveButton">Save product</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
