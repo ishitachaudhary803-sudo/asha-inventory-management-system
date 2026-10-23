@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from pathlib import Path
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request, send_from_directory
 
 app = Flask(__name__)
 
@@ -47,7 +47,17 @@ def product_dict(row):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return send_from_directory(app.root_path, "index.html")
+
+
+@app.route("/styles.css")
+def styles():
+    return send_from_directory(app.root_path, "styles.css")
+
+
+@app.route("/script.js")
+def script():
+    return send_from_directory(app.root_path, "script.js")
 
 @app.route("/api/products", methods=["GET"])
 def list_products():
